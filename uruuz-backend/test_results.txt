@@ -1,0 +1,5 @@
+# github.com/uruuz/uruuz-backend/internal/services [github.com/uruuz/uruuz-backend/internal/services.test]
+internal/services/wallet_service_test.go:4:2: "os" imported and not used
+internal/services/wallet_service_test.go:7:2: "github.com/google/uuid" imported and not used
+FAIL	github.com/uruuz/uruuz-backend/internal/services [build failed]
+FAIL
