@@ -1,21 +1,15 @@
-FROM golang:1.22-alpine AS builder
-
+# Build stage
+FROM golang:1.21-alpine AS builder
 WORKDIR /app
-
 COPY go.mod go.sum ./
 RUN go mod download
-
 COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -o /uruuz-api ./cmd/api/main.go
 
-RUN go build -o main ./cmd/api/main.go
-
+# Run stage
 FROM alpine:latest
-
+RUN apk --no-cache add ca-certificates
 WORKDIR /root/
-
-COPY --from=builder /app/main .
-COPY --from=builder /app/.env .
-
+COPY --from=builder /uruuz-api .
 EXPOSE 8080
-
-CMD ["./main"]
+CMD ["./uruuz-api"]

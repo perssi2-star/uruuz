@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: uruuz-api
+    runtime: docker
+    dockerfilePath: ./uruuz-backend/Dockerfile
+    dockerContext: ./uruuz-backend
+    plan: free
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: GIN_MODE
+        value: release
+      - key: JWT_SECRET
+        value: uruuz_jwt_secret_uganda_2024_secure
+      - key: MTN_ENVIRONMENT
+        value: sandbox
+      - key: AIRTEL_ENVIRONMENT
+        value: sandbox
+      - key: DATABASE_URL
+        fromDatabase:
+          name: uruuz-db
+          property: connectionString
+
+databases:
+  - name: uruuz-db
+    plan: free
